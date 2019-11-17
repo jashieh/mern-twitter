@@ -12,6 +12,7 @@ class SignupForm extends React.Component {
             errors: {}
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.clearedErrors = false;
     }
 
     update(field) {
@@ -29,6 +30,20 @@ class SignupForm extends React.Component {
     
         this.props.signup(user, this.props.history); 
     }
+
+    renderErrors() {
+      console.log("errpr")
+      return(
+        <ul>
+          {Object.keys(this.state.errors).map((error, i) => (
+            <li key={`error-${i}`}>
+              {this.state.errors[error]}
+            </li>
+          ))}
+        </ul>
+      );
+    }
+  
 
 
     render() {
@@ -62,7 +77,7 @@ class SignupForm extends React.Component {
                     />
                   <br/>
                   <input type="submit" value="Submit" />
-                  {/* {this.renderErrors()} */}
+                  {this.renderErrors()}
                 </div>
               </form>
             </div>
