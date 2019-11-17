@@ -11,7 +11,7 @@ import { RECEIVE_CURRENT_USER,
         switch (action.type) {
             case RECEIVE_CURRENT_USER:
             return {
-                ...state,
+                ...state,   
                 isAuthenticated: !!action.currentUser,
                 user: action.currentUser
             };

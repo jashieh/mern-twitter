@@ -40,3 +40,8 @@ export const login = user => dispatch => (APIUtil.login(user)
     .catch((err) => dispatch(receiveErrors(err.response.data)))
 );
 
+export const logout = () => dispatch => {
+    localStorage.removeItem('jwtToken');
+    APIUtil.setAuthToken(false);
+    dispatch(logoutUser());
+};

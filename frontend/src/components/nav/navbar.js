@@ -6,12 +6,12 @@ class NavBar extends React.Component {
     super(props);
 
     this.logoutUser = this.logoutUser.bind(this);
-    // this.getLinks = this.getLinks.bind(this);
+    this.getLinks = this.getLinks.bind(this);
   }
 
   logoutUser(e) {
       e.preventDefault();
-    //   this.props.logout();
+      this.props.logout();
   }
 
   renderErrors() {
@@ -26,31 +26,31 @@ class NavBar extends React.Component {
     );
   }
 
-//   getLinks() {
-//       if (this.props.loggedIn) {
-//         return (
-//             <div>
-//                 <Link to={'/tweets'}>All Tweets</Link>
-//                 <Link to={'/profile'}>Profile</Link>
-//                 <Link to={'/new_tweet'}>Write a Tweet</Link>
-//                 <button onClick={this.logoutUser}>Logout</button>
-//             </div>
-//         );
-//       } else {
-//         return (
-//             <div>
-//                 <Link to={'/signup'}>Signup</Link>
-//                 <Link to={'/login'}>Login</Link>
-//             </div>
-//         );
-//       }
-//   }
+  getLinks() {
+      if (this.props.loggedIn) {
+        return (
+            <div>
+                <Link to={'/tweets'}>All Tweets</Link>
+                <Link to={'/profile'}>Profile</Link>
+                <Link to={'/new_tweet'}>Write a Tweet</Link>
+                <button onClick={this.logoutUser}>Logout</button>
+            </div>
+        );
+      } else {
+        return (
+            <div>
+                <Link to={'/signup'}>Signup</Link>
+                <Link to={'/login'}>Login</Link>
+            </div>
+        );
+      }
+  }
 
   render() {
       return (
         <div>
-            <Link to={'/signup'}>Signup</Link>
-            <Link to={'/login'}>Login</Link>
+            <h1>Chirper</h1>
+            { this.getLinks() }
         </div>
       );
   }
