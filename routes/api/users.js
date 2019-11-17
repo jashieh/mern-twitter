@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const User = require('../../models/User');
 const passport = require('passport');
+const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 
 
 const router = express.Router();
