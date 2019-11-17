@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');    
 const keys = require('../../config/keys');
 const User = require('../../models/User');
+const passport = require('passport');
 
 
 const router = express.Router();
@@ -17,13 +18,13 @@ router.post("/register", (req, res) => {
         return res.status(400).json(errors);
     }
     
-    User.findOne({ name: req.body.name }).then(user => {
+    User.findOne({ email: req.body.email }).then(user => {
         if (user) {
-            errors.name = "User already exists";
+            errors.email = "User already exists";
             return res.status(400).json(errors);
         } else {
             const newUser = new User({
-                name: req.body.name,
+                handle: req.body.handle,
                 email: req.body.email,
                 password: req.body.password
             });
@@ -32,10 +33,9 @@ router.post("/register", (req, res) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
                     newUser.password = hash;
-                    newUser
-                    .save()
+                    newUser.save()
                     .then(user => {
-                        const payload = { id: user.id, name: user.name };
+                        const payload = { id: user.id, handle: user.handle, email: user.email };
                         
                         jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                             res.json({
@@ -58,18 +58,18 @@ router.post("/login", (req, res) => {
         return res.status(400).json(errors);
     }
     
-    const name = req.body.name;
+    const email = req.body.email;
     const password = req.body.password;
     
-    User.findOne({ name }).then(user => {
+    User.findOne({ email }).then(user => {
         if (!user) {
-            errors.name = "This user does not exist";
+            errors.email = "This user does not exist";
             return res.status(400).json(errors);
         }
         
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
-                const payload = { id: user.id, name: user.name };
+                const payload = { id: user.id, handle: user.handle, email: user.email };
                 
                 jwt.sign(payload, keys.secretOrKeys, { expiresIn: 3600 }, (err, token) => {
                     res.json({
