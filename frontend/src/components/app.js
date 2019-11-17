@@ -8,7 +8,7 @@ import SignupFormContainer from './session/signup_form_container';
 
 import TweetsContainer from './tweets/tweets_container';
 import ProfileContainer from './profile/profile_container';
-// import TweetComposeContainer from './tweets/tweet_compose_container';
+import TweetComposeContainer from './tweets/tweet_compose_container';
 
 const App = () => (
   <div>
@@ -20,7 +20,7 @@ const App = () => (
 
       <ProtectedRoute exact path="/tweets" component={TweetsContainer} />
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
-      {/* <ProtectedRoute exact path="/new_tweet" component={TweetComposeContainer} /> */}
+      <ProtectedRoute exact path="/new_tweet" component={TweetComposeContainer} />
     </Switch>
   </div>
 );
