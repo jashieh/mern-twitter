@@ -32,7 +32,7 @@ require('./config/passport')(passport);
 
 
 
-app.get("/", (req, res) => res.send("Test Hello World"));
+// app.get("/", (req, res) => res.send("Test Hello World"));
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
 
